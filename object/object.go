@@ -14,6 +14,7 @@ type ObjectType string
 const (
 	INTEGER_OBJ      = "INTEGER"
 	FLOAT_OBJ        = "FLOAT"
+	STRING_OBJ       = "STRING"
 	BOOLEAN_OBJ      = "BOOLEAN"
 	NULL_OBJ         = "NULL"
 	RETURN_VALUE_OBJ = "RETURN_VALUE"
@@ -68,6 +69,13 @@ type Float struct {
 
 func (f *Float) Inspect() string  { return strconv.FormatFloat(f.Value, 'f', -1, 64) }
 func (f *Float) Type() ObjectType { return FLOAT_OBJ }
+
+type String struct {
+	Value string
+}
+
+func (s *String) Type() ObjectType { return STRING_OBJ }
+func (s *String) Inspect() string  { return s.Value }
 
 type Boolean struct {
 	Value bool

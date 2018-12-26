@@ -25,6 +25,9 @@ func TestNextToken(t *testing.T) {
 		}
 		==
 		!=
+		50.1
+		"foobar"
+		"foo bar"
 	`
 	tests := []struct {
 		expectedType    token.TokenType
@@ -97,6 +100,9 @@ func TestNextToken(t *testing.T) {
 		{token.RBRACE, "}"},
 		{token.EQ, "=="},
 		{token.NOT_EQ, "!="},
+		{token.FLOAT, "50.1"},
+		{token.STRING, "foobar"},
+		{token.STRING, "foo bar"},
 		{token.EOF, ""},
 	}
 
