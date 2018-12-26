@@ -1,6 +1,10 @@
 package lexer
 
-import "github.com/dwarukira/wakanda/token"
+import (
+	"strings"
+
+	"github.com/dwarukira/wakanda/token"
+)
 
 type Lexer struct {
 	input        string
@@ -86,8 +90,14 @@ func (l *Lexer) NextToken() token.Token {
 			return tok
 		} else if isDigit(l.ch) {
 			tok.Type = token.INT
-			tok.Literal = l.readNumber()
+			number := l.readNumber()
+
+			if strings.Contains(number, ".") {
+				tok.Type = token.FLOAT
+			}
+			tok.Literal = number
 			return tok
+
 		} else {
 			tok = newToken(token.ILLEGAL, l.ch)
 		}
@@ -129,12 +139,16 @@ func (l *Lexer) skipWhitespace() {
 
 func (l *Lexer) readNumber() string {
 	position := l.position
-	for isDigit(l.ch) {
+	for isDigit(l.ch) || isDot(l.ch) {
 		l.readChar()
 	}
 	return l.input[position:l.position]
 }
 
 func isDigit(ch byte) bool {
-	return '0' <= ch && ch <= '9'
+	return '0' <= ch && ch <= '9' || ch == '.'
+}
+
+func isDot(ch byte) bool {
+	return '.' == ch
 }
