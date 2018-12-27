@@ -30,6 +30,7 @@ const (
 	// Delimiters
 	COMMA     = ","
 	SEMICOLON = ";"
+	COLON     = ":"
 
 	LPAREN = "("
 	RPAREN = ")"
@@ -48,6 +49,9 @@ const (
 	// compare
 	EQ     = "=="
 	NOT_EQ = "!="
+
+	LBRACKET = "["
+	RBRACKET = "]"
 )
 
 var keywords = map[string]TokenType{
