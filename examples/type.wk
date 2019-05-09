@@ -1,0 +1,29 @@
+
+let target = 100
+let coins = [37, 19, 5, 2, 1]
+
+
+let soln = fn(used_coins) {
+    let sum_used_coins = sum(used_coins)
+    if (sum_used_coins == target) {
+        print(used_coins)
+        return true
+    }
+
+    if (sum_used_coins > target) {
+        return false
+    }
+    
+    let i = 0
+    for (i < len(coins)) {
+        let used_coins = push(used_coins, coins[i])
+        if (soln(used_coins)) {
+            return true 
+        }
+        let used_coins = pop(used_coins)
+        let i = i + 1
+    }
+    return false
+}
+
+soln([])

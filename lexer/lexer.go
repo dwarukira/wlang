@@ -85,6 +85,13 @@ func (l *Lexer) NextToken() token.Token {
 		tok.Type = token.STRING
 		tok.Literal = l.readString()
 
+	case 39:
+		tok.Type = token.STRING
+		tok.Literal = l.readString()
+
+	case '%':
+		tok = newToken(token.MOD, l.ch)
+
 	case '[':
 		tok = newToken(token.LBRACKET, l.ch)
 
@@ -169,6 +176,10 @@ func (l *Lexer) readString() string {
 	for {
 		l.readChar()
 		if l.ch == '"' {
+			break
+		}
+		// ''' single. Allow single quote string
+		if l.ch == 39 {
 			break
 		}
 	}

@@ -1,0 +1,26 @@
+{
+    "name": "wk",
+    "version": "0.0.1",
+    "icon": "images/logo.png",
+    "repository": {
+		"type": "git",
+		"url": "https://github.coms/vscode-sass-indented"
+	},
+    "engines": {
+        "vscode": ">=0.9.0-pre.1"
+    },
+    "publisher": "Duncan",
+    "contributes": {
+        "languages": [{
+            "id": "wk",
+            "aliases": ["Wk", "wk"],
+            "extensions": [".wk",".ws"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "wk",
+            "scopeName": "source.wk",
+            "path": "./syntaxes/wk.tmLanguage"
+        }]
+    }
+}

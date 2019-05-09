@@ -26,6 +26,7 @@ const (
 	LT       = ">" // less than
 	GT       = "<" // greater than
 	BANG     = "!"
+	MOD      = "%"
 
 	// Delimiters
 	COMMA     = ","
@@ -45,6 +46,7 @@ const (
 	IF       = "IF"
 	ELSE     = "ELSE"
 	RETURN   = "RETURN"
+	FOR      = "FOR"
 
 	// compare
 	EQ     = "=="
@@ -62,6 +64,7 @@ var keywords = map[string]TokenType{
 	"true":   TRUE,
 	"false":  FALSE,
 	"return": RETURN,
+	"for":    FOR,
 }
 
 func LookupIdent(ident string) TokenType {

@@ -127,20 +127,37 @@ var builtins = map[string]*object.Builtin{
 			return &object.Array{Elements: newElements}
 		},
 	},
+	"pop": &object.Builtin{
+		Fn: func(args ...object.Object) object.Object {
+			if len(args) != 1 && args[0].Type() != object.ARRAY_OBJ {
+				return newError("argument to `push` must be ARRAY, got %s",
+					args[0].Type())
+			}
+
+			arr := args[0].(*object.Array)
+			length := len(arr.Elements)
+
+			newElements := make([]object.Object, length-1, length-1)
+			copy(newElements, arr.Elements)
+			// newElements[length] = args[1]
+
+			return &object.Array{Elements: newElements}
+		},
+	},
+
 	// io
 	"print": &object.Builtin{
 		Fn: func(args ...object.Object) object.Object {
 			for _, arg := range args {
 				fmt.Println(arg.Inspect())
 			}
-
 			return NULL
 		},
 	},
 	"input": &object.Builtin{
 		Fn: func(args ...object.Object) object.Object {
 			for _, arg := range args {
-				fmt.Println(arg.Inspect())
+				fmt.Printf(arg.Inspect())
 			}
 			scanner := bufio.NewScanner(os.Stdin)
 			scanned := scanner.Scan()

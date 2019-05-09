@@ -30,6 +30,7 @@ func TestNextToken(t *testing.T) {
 		"foo bar"
 		[1, 2];
 		{"foo": "bar"}
+		for a > b { a }
 	`
 	tests := []struct {
 		expectedType    token.TokenType
@@ -116,6 +117,14 @@ func TestNextToken(t *testing.T) {
 		{token.COLON, ":"},
 		{token.STRING, "bar"},
 		{token.RBRACE, "}"},
+		{token.FOR, "for"},
+		{token.IDENT, "a"},
+		{token.GT, ">"},
+		{token.IDENT, "b"},
+		{token.LBRACE, "{"},
+		{token.IDENT, "a"},
+		{token.RBRACE, "}"},
+
 		{token.EOF, ""},
 	}
 

@@ -19,7 +19,7 @@ func lightPurple(str interface{}) string {
 }
 
 func purple(str interface{}) string {
-	return fmt.Sprintf("\033[95m%v\033[00m", str)
+	return fmt.Sprintf("\033[95m%v\033[00m", str) 
 }
 
 func cyan(str interface{}) string {

@@ -1,0 +1,3 @@
+let money = [100, 2330, 200, 390, 900]
+
+print(sum(money))

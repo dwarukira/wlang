@@ -1,0 +1,14 @@
+let a = 9
+
+let s = fn() {
+    for (a < 20) {
+        print(a)
+        if(a > 15) {
+            return true
+        }
+        let a = a + 1
+        
+    }
+}
+
+s()

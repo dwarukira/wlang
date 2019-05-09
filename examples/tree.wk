@@ -1,0 +1,7 @@
+let a = fn(x) {
+    return fn(y) {
+        x + y
+    }
+}
+
+print(a(4)(2))

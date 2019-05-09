@@ -1,0 +1,14 @@
+let fib = fn(n) {
+    let fibIter  = fn(n, a ,b){
+        if(n == 0) {
+            return b
+        } else {
+            return fibIter(n -1 , a + b,a)
+        }
+    }
+
+    return fibIter(n, 1.0,0.0)
+}
+
+
+print(fib(7))

@@ -6,7 +6,7 @@ let map = fn(arr, f) {
       iter(rest(arr), push(accumulated, f(first(arr))));
     }
    };
-   iter(arr, []);
+  iter(arr, []);
 };
 
 let reduce = fn(arr, initial, f) {
@@ -24,3 +24,10 @@ let reduce = fn(arr, initial, f) {
 let sum = fn(arr) {
   reduce(arr, 0, fn(initial, el) { initial + el });
 };
+
+let gcd = fn(a,b) {
+  if (b == 0) {
+    return a;
+  } 
+  return gcd(b , a % b)
+}
