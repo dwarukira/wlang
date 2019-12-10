@@ -1,0 +1,40 @@
+let pow = fn(base,exponent){
+  let i = 1
+  let ans = base
+  for(i < exponent){
+    let base = ans * base
+    let i = i + 1
+  }
+  return base
+}
+
+let pow = fn(base, exponent) {
+  if (exponent != 0) {
+    return (base * pow(base, exponent - 1));
+  } else {
+    return 1;
+  }
+}
+
+let cos = fn(x){
+  return sin(90 - x)
+}
+
+let tan = fn(x){
+  return cos(x) / sin(x)
+}
+
+let e = 2.71828182845904523536028747135266249775724709369995
+let pi = 	3.14159265358979323846264338327950288419716939937510
+
+let fact = fn(x){
+  if (x == 0){
+    return 1
+  }
+  if (x == 1){
+    return 1
+  }
+ return fact(x - 1) * x
+}
+print(fact(5))
+

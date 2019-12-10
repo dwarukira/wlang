@@ -68,7 +68,6 @@ func (l *Lexer) NextToken() token.Token {
 		} else {
 			tok = newToken(token.BANG, l.ch)
 		}
-
 	case '+':
 		tok = newToken(token.PLUS, l.ch)
 	case '-':
@@ -97,6 +96,23 @@ func (l *Lexer) NextToken() token.Token {
 
 	case ']':
 		tok = newToken(token.RBRACKET, l.ch)
+	case '|':
+		if l.peekChar() == '|' {
+			ch := l.ch
+			l.readChar()
+			tok = token.Token{Type: token.OR, Literal: string(ch) + string(l.ch)}
+		} else {
+			tok = newToken(token.BITOR, l.ch)
+		}
+
+	case '&':
+		if l.peekChar() == '&' {
+			ch := l.ch
+			l.readChar()
+			tok = token.Token{Type: token.AND, Literal: string(ch) + string(l.ch)}
+		} else {
+			tok = newToken(token.BITAND, l.ch)
+		}
 
 	case 0:
 		tok.Literal = ""

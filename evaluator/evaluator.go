@@ -237,6 +237,18 @@ func evalInfixExpression(operator string, left, right object.Object) object.Obje
 	case left.Type() == object.STRING_OBJ && right.Type() == object.STRING_OBJ:
 		return evalStringInfixExpression(operator, left, right)
 
+	case operator == "||":
+		if isTruthy(left) || isTruthy(right) {
+			return nativeBoolToBooleanObject(true)
+		}
+		return nativeBoolToBooleanObject(false)
+
+	case operator == "&&":
+		if isTruthy(left) && isTruthy(right) {
+			return nativeBoolToBooleanObject(true)
+		}
+		return nativeBoolToBooleanObject(false)
+
 	case operator == "==":
 		return nativeBoolToBooleanObject(left == right)
 	case operator == "!=":
@@ -277,6 +289,17 @@ func evalIntegerInfixExpression(
 		return nativeBoolToBooleanObject(leftVal == rightVal)
 	case "!=":
 		return nativeBoolToBooleanObject(leftVal != rightVal)
+	case "||":
+		if isTruthy(left) && isTruthy(right) {
+			return nativeBoolToBooleanObject(true)
+		}
+		return nativeBoolToBooleanObject(false)
+	case "&&":
+		if isTruthy(left) && isTruthy(right) {
+			return nativeBoolToBooleanObject(true)
+		}
+		return nativeBoolToBooleanObject(false)
+
 	default:
 		return newError("unknown operator: %s %s %s",
 			left.Type(), operator, right.Type())
@@ -308,6 +331,17 @@ func evalFloatInfixExpression(operator string,
 		return nativeBoolToBooleanObject(leftVal == rightVal)
 	case "!=":
 		return nativeBoolToBooleanObject(leftVal != rightVal)
+	case "||":
+		if isTruthy(left) && isTruthy(right) {
+			return nativeBoolToBooleanObject(true)
+		}
+		return nativeBoolToBooleanObject(false)
+	case "&&":
+		if isTruthy(left) && isTruthy(right) {
+			return nativeBoolToBooleanObject(true)
+		}
+		return nativeBoolToBooleanObject(false)
+
 	default:
 		return newError("unknown operator: %s %s %s",
 			left.Type(), operator, right.Type())
@@ -469,6 +503,17 @@ func evalStringInfixExpression(
 		return nativeBoolToBooleanObject(leftVal != rightVal)
 	case "+":
 		return &object.String{Value: leftVal + rightVal}
+	case "&&":
+		if isTruthy(left) && isTruthy(right) {
+			return nativeBoolToBooleanObject(true)
+		}
+		return nativeBoolToBooleanObject(false)
+
+	case "||":
+		if isTruthy(left) || isTruthy(right) {
+			return nativeBoolToBooleanObject(true)
+		}
+		return nativeBoolToBooleanObject(false)
 
 	default:
 		return newError("unknown operator: %s %s %s",

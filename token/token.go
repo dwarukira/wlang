@@ -27,6 +27,10 @@ const (
 	GT       = "<" // greater than
 	BANG     = "!"
 	MOD      = "%"
+	OR       = "||"
+	AND      = "&&"
+	BITOR    = "|"
+	BITAND   = "&"
 
 	// Delimiters
 	COMMA     = ","

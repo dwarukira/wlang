@@ -17,6 +17,8 @@ const (
 	SUM         // +
 	PRODUCT     // *
 	PREFIX      // -X or !X
+	BITWISE     // |
+	LOGICAL     // || or &&
 	CALL        // myFunction(X)
 	INDEX       // array[index]
 )
@@ -49,6 +51,10 @@ var precedences = map[token.TokenType]int{
 	token.ASTERISK: PRODUCT,
 	token.LPAREN:   CALL,
 	token.LBRACKET: INDEX,
+	token.BITAND:   BITWISE,
+	token.BITOR:    BITWISE,
+	token.OR:       LOGICAL,
+	token.AND:      LOGICAL,
 }
 
 func New(l *lexer.Lexer) *Parser {
@@ -74,6 +80,10 @@ func New(l *lexer.Lexer) *Parser {
 	p.registerInfix(token.NOT_EQ, p.parseInfixExpression)
 	p.registerInfix(token.LT, p.parseInfixExpression)
 	p.registerInfix(token.GT, p.parseInfixExpression)
+	p.registerInfix(token.AND, p.parseInfixExpression)
+	p.registerInfix(token.OR, p.parseInfixExpression)
+	p.registerInfix(token.BITOR, p.parseInfixExpression)
+	p.registerInfix(token.BITAND, p.parseInfixExpression)
 
 	p.registerPrefix(token.TRUE, p.parseBoolean)
 	p.registerPrefix(token.FALSE, p.parseBoolean)
@@ -259,8 +269,10 @@ func (p *Parser) expectPeek(t token.TokenType) bool {
 
 // ParseProgram ...
 func (p *Parser) ParseProgram() *ast.Program {
-	program := &ast.Program{}
-	program.Statements = []ast.Statement{}
+	program := &ast.Program{
+		Statements: []ast.Statement{},
+	}
+	// program.Statements = []ast.Statement{}
 
 	for !p.curTokenIs(token.EOF) {
 		stmt := p.parseStatement()

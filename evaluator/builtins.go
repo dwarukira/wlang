@@ -3,6 +3,7 @@ package evaluator
 import (
 	"bufio"
 	"fmt"
+	"math"
 	"os"
 
 	"github.com/dwarukira/wakanda/object"
@@ -142,6 +143,20 @@ var builtins = map[string]*object.Builtin{
 			// newElements[length] = args[1]
 
 			return &object.Array{Elements: newElements}
+		},
+	},
+	"sin": &object.Builtin{
+		Fn: func(args ...object.Object) object.Object {
+			if len(args) != 1 && (args[0].Type() != object.FLOAT_OBJ) {
+				return newError("argument fo `sin` must be a number, got %s",
+					args[0].Type())
+			}
+			switch args[0].(type) {
+			case *object.Integer:
+				return &object.Float{Value: math.Sin(float64(args[0].(*object.Integer).Value))}
+			default:
+				return &object.Float{Value: math.Sin(args[0].(*object.Float).Value)}
+			}
 		},
 	},
 
